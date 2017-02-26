@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{title}} - git info</title>
+    {% else %}
+    <title>Information</title>
+    {% endif %}
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animate.css') }}">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <form class="form-inline" method="post" action="/" name="login">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="password" name="password">
+            </div>
+             <div class="form-group">
+                <label for="repname">About Repository</label>
+                <input type="text" class="form-control" id="repname" placeholder="repname" name="repname">
+            </div>
+            <div class="form-group">
+                <label for="create">Create Repository</label>
+                <input type="text" class="form-control" id="create" placeholder="Name creating repository" name="create">
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+
+        <p class="error">{{errorL}}</p>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+           {% if autorize %}
+            <div class="col-lg-6">
+                <h2 class="title">About you</h2>
+                <ul>
+                    {%if abUser %}
+                    {% for value in abUser %}
+                        <li>{{value}}</li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+             <div class="col-lg-6">
+                <h2 class="title">Repositories</h2>
+                <ul>
+                    {%if repos %}
+                    {% for value in repos %}
+                        {% for key in value %}
+                            <li>{{key}} : {{value[key]}}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 ">
+                 <h2 class="title">About your repository {{repname}}</h2>
+                    <ul>
+                        {% for value in repinfo %}
+                            {% for s in value %}
+                            <li>{{s }} : {{value[s]}} </li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+            </div>
+            
+            <div class="col-lg-6 ">
+                 <h2 class="title">Create {{crname}}</h2>
+                    <p class="text">
+                        {{create}}
+                    </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    
+    
+   
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+</body>
+</html>
